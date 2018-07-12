@@ -1,0 +1,14 @@
+# build stage
+FROM microsoft/dotnet:2.0-sdk-nanoserver as builder
+WORKDIR src/
+#COPY Program.cs .
+#COPY console.csproj .
+COPY . .
+RUN dotnet restore; dotnet build -c release; dotnet publish -c release -o app
+
+# final image stage
+FROM microsoft/dotnet:2.0-runtime-nanoserver 
+WORKDIR src/app/
+COPY --from=builder /src/app /src/app
+ENTRYPOINT dotnet consoleapp.dll
+

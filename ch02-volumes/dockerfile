@@ -1,0 +1,8 @@
+# escape=`
+FROM microsoft/nanoserver:1709
+
+VOLUME C:\app\config
+VOLUME C:\app\logs
+
+ENTRYPOINT cmd
+
